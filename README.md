@@ -36,7 +36,7 @@ Built by [Minta](https://github.com/aramintak) and [Timothy](https://github.com/
 
 ## Why Klippbok exists
 
-Existing training frameworks assume do not take responsibility for how your data is prepared and there is very little reliable guidance on dataset prep for video models. 
+Existing training frameworks don't take responsibility for how your data is prepared and there is very little reliable guidance on dataset prep for video models. 
 
 A common reality:
 
