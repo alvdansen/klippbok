@@ -1,0 +1,9 @@
+# Klippbok Data Config — Minimal (Tier 1)
+#
+# Just tell Klippbok where your video clips are.
+# Everything else uses sensible defaults for Wan model training.
+#
+# This is all a new user needs to get started.
+
+dataset:
+  path: ./video_clips

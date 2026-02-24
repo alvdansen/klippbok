@@ -1,0 +1,23 @@
+# Klippbok Data Config — Standard (Tier 2)
+#
+# A character LoRA dataset with anchor word and reference images.
+# This is what most users will write for a typical training project.
+
+dataset:
+  name: annika
+  use_case: character              # character | style | motion | object
+
+datasets:
+  - path: ./video_clips
+    repeats: 1
+
+video:
+  fps: 16                          # Wan's training FPS (usually leave as default)
+  resolution: 720                  # 480 or 720
+
+controls:
+  text:
+    anchor_word: annika            # natural-language anchor prepended to captions
+  images:
+    reference:
+      source: first_frame          # auto-extract first frame from each clip

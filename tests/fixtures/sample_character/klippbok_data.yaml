@@ -1,0 +1,20 @@
+# Test config — sample character LoRA (5-clip subset)
+dataset:
+  name: sample_character
+  use_case: character
+  description: "Sample character LoRA — 5-clip test subset"
+
+datasets:
+  - path: .
+
+video:
+  fps: 16
+  resolution: 480
+
+controls:
+  text:
+    anchor_word: Luna
+    required: true
+  images:
+    reference:
+      source: first_frame

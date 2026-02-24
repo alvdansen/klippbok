@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "klippbok"
+version = "0.1.0"
+description = "Video dataset curation, preparation, and annotation for LoRA training"
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [
+    { name = "Minta", email = "alvdansen@users.noreply.github.com" },
+    { name = "Timothy", email = "timm156@users.noreply.github.com" },
+]
+keywords = ["video", "lora", "training", "dataset", "captioning", "diffusion", "wan"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "pydantic>=2.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+video = [
+    "scenedetect[opencv]>=0.6",
+]
+caption = [
+    "google-genai>=1.0",
+    "requests>=2.20",
+]
+dataset = [
+    "filetype>=1.2",
+    "rich>=13.0",
+]
+triage = [
+    "torch>=2.0",
+    "transformers>=4.30",
+    "Pillow>=9.0",
+]
+all = [
+    "klippbok[video]",
+    "klippbok[caption]",
+    "klippbok[dataset]",
+    "klippbok[triage]",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-tmp-files>=0.0.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/alvdansen/klippbok"
+Repository = "https://github.com/alvdansen/klippbok"
+Documentation = "https://github.com/alvdansen/klippbok/tree/main/docs"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
