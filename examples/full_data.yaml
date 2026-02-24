@@ -1,0 +1,85 @@
+# Klippbok Data Config — Full (Tier 3)
+#
+# Every available field. This is what power users and the Klippbok internals use.
+# Most users will never need to touch the quality, bucketing, or metadata sections.
+
+# ─── Dataset Identity ───
+# Who this dataset is and what it's for. Helps the captioner tool make better
+# decisions about what to include/omit in captions.
+dataset:
+  name: annika
+  use_case: character              # character | style | motion | object (null = none)
+  description: "Character LoRA training dataset for Annika"
+
+# ─── Dataset Sources ───
+# Multiple folders supported. Each can override global settings for balancing.
+datasets:
+  - path: ./video_clips
+    repeats: 1                     # times to repeat per epoch (for balancing)
+    loss_multiplier: 1.0           # relative training weight
+    is_regularization: false       # true = regularization data
+
+  - path: ./supplementary_clips
+    repeats: 3                     # repeat small dataset more often
+    loss_multiplier: 0.5           # but lower its training weight
+    is_regularization: true        # preserves model generality
+
+# ─── Video Specifications ───
+# What the pipeline expects from your video files.
+video:
+  fps: 16                         # Wan's training FPS
+  resolution: 720                 # target resolution tier: 480 or 720
+  frame_count: auto               # auto = use clip lengths as-is (validated to 4n+1)
+  upscale_policy: never           # never | warn — Wan was trained on downscale-only data
+  sar_policy: auto_correct        # auto_correct | reject — non-square pixel aspect ratios
+
+# ─── Control Signals ───
+controls:
+  # Text / caption control signal
+  text:
+    format: txt                   # txt (sidecar .txt files) | jsonl (consolidated)
+    jsonl_file: null              # path to JSONL file (when format: jsonl)
+    anchor_word: annika           # natural-language anchor prepended to captions
+    default_caption: ""           # fallback for clips with no caption file
+    required: true                # true = error if clip has no caption
+    max_tokens: 512               # UMT5 encoder limit — warns if exceeded
+    shuffle_tokens: false         # randomize comma-separated token order
+    keep_tokens: 1                # preserve first N tokens during shuffle
+    token_dropout_rate: 0.0       # per-token removal probability (0.0–1.0)
+
+  # Image-based control signals
+  images:
+    reference:
+      source: first_frame         # first_frame | folder | none
+      folder: null                # path to reference images (when source: folder)
+      required: false             # true = error if missing reference image
+    # subject:                    # (future) character/object identity references
+    # style:                      # (future) aesthetic/mood references
+
+  # structural:                   # (future) depth, edge, pose maps
+
+# ─── Quality Thresholds ───
+# All optional — set to null to skip that check.
+# Applied during dataset validation, not during training.
+quality:
+  min_resolution: 720             # reject clips below this height (pixels)
+  blur_threshold: null            # Laplacian variance minimum (null = skip)
+  exposure_range: null            # [low, high] acceptable range (null = skip)
+  motion:
+    min_intensity: null           # reject static shots (null = skip)
+    max_intensity: null           # reject chaotic motion (null = skip)
+
+# ─── Bucketing ───
+# Groups clips by compatible dimensions for batch construction.
+bucketing:
+  dimensions:                     # properties to group by
+    - aspect_ratio
+    - frame_count
+    - resolution
+  aspect_ratio_tolerance: 0.1     # how close ratios need to be to share a bucket
+  min_bucket_size: 2              # warn if fewer clips in a bucket
+
+# ─── Metadata ───
+metadata:
+  source: ""                      # provenance (film source, client footage, etc.)
+  tags: []                        # arbitrary tags for organization
