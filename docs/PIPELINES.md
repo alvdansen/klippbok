@@ -2,7 +2,7 @@
 
 Which pipeline fits your training situation? This guide helps you pick the right path and shows you the commands to get there.
 
-For detailed setup (provider config, threshold tuning, troubleshooting), see [WALKTHROUGH_SCRATCH.md](WALKTHROUGH_SCRATCH.md).
+For detailed setup (provider config, threshold tuning, troubleshooting), see [WALKTHROUGH.md](WALKTHROUGH.md).
 
 ---
 
@@ -93,7 +93,7 @@ python -m klippbok.dataset validate clips
 
 Skip step 5 if you're training T2V (text-to-video) — no reference frames needed.
 
-For provider setup and API keys, see [WALKTHROUGH_SCRATCH.md — Step 3: Caption](WALKTHROUGH_SCRATCH.md#step-3-caption--generate-captions-via-vlm).
+For provider setup and API keys, see [WALKTHROUGH.md — Step 3: Caption](WALKTHROUGH.md#step-3-caption--generate-captions-via-vlm).
 
 ### What you end up with
 
