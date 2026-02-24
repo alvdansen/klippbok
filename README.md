@@ -161,6 +161,8 @@ This is one of Klippbok's most powerful features. Instead of manually scrubbing 
 
 **How it works:** You create a `concepts/` folder with subfolders named by type. Put one or more reference images in each — a screenshot, a character sheet, a photo. Klippbok uses [CLIP](https://openai.com/research/clip) to compare video frames against your reference images and automatically identifies which scenes match.
 
+![Triage example — reference image on the left, matched scenes on the right](docs/assets/triage_example.png)
+
 ```
 concepts/
   character/
